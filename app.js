@@ -12,6 +12,8 @@ const csrf = require("csurf");
 const flash = require("connect-flash");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+const helmet = require("helmet");
+const compression = require("compression");
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
@@ -52,6 +54,9 @@ app.set("view engine", "ejs");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const authRoutes = require("./routes/auth");
+
+app.use(helmet());
+app.use(compression());
 
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
