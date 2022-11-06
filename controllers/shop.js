@@ -15,7 +15,7 @@ exports.getProduct = (req, res, next) => {
     .then((product) => {
       res.render("shop/product-detail", {
         product: product,
-        username: req.user.name,
+        username: res.locals.isAuthenticated ? req.user.name : "",
         pageTitle: product.title,
         path: "/products",
       });
