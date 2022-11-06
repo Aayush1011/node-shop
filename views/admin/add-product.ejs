@@ -1,0 +1,57 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <%- include('../includes/navigation.ejs') %>
+
+        <main>
+            <% if (errorMessage) { %>
+                <% errorMessage.forEach(message=> { %>
+                    <div class="user-message user-message--error">
+                        <%= message.msg %>
+                    </div>
+                    <% }) %>
+                        <% } %>
+                            <% if (prods.length> 0) { %>
+                                <p class="suggest">Add more products like <%= prods[prods.length-1].title %>
+                                </p>
+                                <% } %>
+                                    <form class="product-form" action="/admin/add-product" method="POST"
+                                        enctype="multipart/form-data">
+                                        <div class="form-control">
+                                            <label for="title">Title</label>
+                                            <input
+                                                class="<%= errorMessage.find(message => message.param === 'title') ? 'invalid' : '' %>"
+                                                type="text" name="title" id="title" value="<%= oldInput.title %>">
+                                        </div>
+                                        <!-- <div class="form-control">
+                                            <label for="imageUrl">Image URL</label>
+                                            <input
+                                                class="<%= errorMessage.find(message => message.param === 'imageUrl') ? 'invalid' : '' %>"
+                                                type="text" name="imageUrl" id="imageUrl"
+                                                value="<%= oldInput.imageUrl %>">
+                                        </div> -->
+                                        <div class="form-control">
+                                            <label for="image">Image</label>
+                                            <input type="file" name="image" id="image">
+                                        </div>
+                                        <div class="form-control">
+                                            <label for="price">Price</label>
+                                            <input
+                                                class="<%= errorMessage.find(message => message.param === 'price') ? 'invalid' : '' %>"
+                                                type="number" name="price" id="price" step="0.01"
+                                                value="<%= oldInput.price %>">
+                                        </div>
+                                        <div class="form-control">
+                                            <label for="description">Description</label>
+                                            <textarea
+                                                class="<%= errorMessage.find(message => message.param === 'description') ? 'invalid' : '' %>"
+                                                type="text" name="description" id="description"
+                                                rows="5"><%= oldInput.description %></textarea>
+                                        </div>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <button class="btn" type="submit">Add Product</button>
+                                    </form>
+        </main>
+        <%- include('../includes/end.ejs') %>
