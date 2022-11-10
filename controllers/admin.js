@@ -58,7 +58,7 @@ exports.postAddProduct = (req, res, next) => {
     .save()
     .then(() => {
       console.log("Created Product");
-      res.redirect("/shop");
+      res.redirect("/");
     })
     .catch((err) => {
       const error = new Error(err);
