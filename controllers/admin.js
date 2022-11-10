@@ -30,6 +30,7 @@ exports.postAddProduct = (req, res, next) => {
     msg: "Attached file is not an image",
     param: "image",
   };
+  const image = req.file;
   if (!errors.isEmpty() || !image) {
     if (!image) {
       errors.errors.push(newError);
@@ -45,7 +46,7 @@ exports.postAddProduct = (req, res, next) => {
   }
 
   const { title, price, description } = req.body;
-  const imageUrl = req.file.path.split("\\").join("/");
+  const imageUrl = image.path.split("\\").join("/");
   const product = new Product({
     title,
     imageUrl,
