@@ -25,8 +25,6 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const { title, price, description } = req.body;
-  const image = req.file;
   const errors = validationResult(req);
   const newError = {
     msg: "Attached file is not an image",
@@ -46,7 +44,8 @@ exports.postAddProduct = (req, res, next) => {
     });
   }
 
-  const imageUrl = image.path;
+  const { title, price, description } = req.body;
+  const imageUrl = req.file.path.split("\\").join("/");
   const product = new Product({
     title,
     imageUrl,
